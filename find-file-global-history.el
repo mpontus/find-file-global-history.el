@@ -1,4 +1,4 @@
-;;; find-file-global-history.el --- Include files opened by other means in file-name-history  -*- lexical-binding: t; -*-
+;;; find-file-global-history.el --- Inlcude every opened file in find-file history   -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2018  Mikhail Pontus
 
@@ -40,9 +40,11 @@
     (unless (equal file-name (car file-name-history))
       (push file-name file-name-history))))
 
+;;;###autoload
 (define-minor-mode find-file-global-history-mode
   "When enabled any opened files will be added to `file-name-history'."
   :global t
+  :require 'find-file-global-history
   (if find-file-global-history-mode
       (add-hook 'find-file-hook 'find-file-global-history-hook)
     (remove-hook 'find-file-hook 'find-file-global-history-hook)))
